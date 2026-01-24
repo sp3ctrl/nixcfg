@@ -30,6 +30,7 @@
     librewolf
     google-chrome
     obsidian
+    gparted
     
     # themes and icons
     dracula-theme

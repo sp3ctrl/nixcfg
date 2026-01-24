@@ -75,9 +75,10 @@
   # USERS
 
   # Don't forget to set a password with ‘passwd’
+
   users.users.sp1 = {
     isNormalUser = true;
-    description = "sp1";
+    description = "sp3ctrl";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       neovim
