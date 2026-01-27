@@ -1,6 +1,4 @@
-# Nix will match by name and automatically inject the inputs
-# from specialArgs/_module.args into the third parameter of this function, insert as "input"
-
+# Minimal NixosConfig by sp3ctrl
 
 { config, pkgs, ... }:
 
@@ -34,9 +32,6 @@
     LC_TIME = "es_CO.UTF-8";
   };
 
-
-  # SERVICES
-  
   #Enable XFCE
   services.xserver = {
     enable = true;
@@ -71,14 +66,11 @@
     pulse.enable = true;
   };
 
-
   # USERS
-
   # Don't forget to set a password with ‘passwd’
-
   users.users.sp1 = {
     isNormalUser = true;
-    description = "sp3ctrl";
+    description = "sp1";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       neovim
@@ -86,9 +78,7 @@
     ];
   };
 
-
   # SOFTWARE
-
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes"];
@@ -103,12 +93,5 @@
   ];
 
       
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
-
+  system.stateVersion = "25.11"; 
 }
