@@ -68,6 +68,8 @@
     # C Development
     gcc
     gdb
+    man-pages
+    linux-manual
 
   ];
   
