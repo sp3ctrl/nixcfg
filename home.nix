@@ -24,8 +24,9 @@
     librewolf
     google-chrome
     obsidian
+    spotify
         
-    # themes and icons
+    # themes  
     dracula-theme
     dracula-icon-theme
     afterglow-cursors-recolored
@@ -37,7 +38,6 @@
     p7zip
 
     # misc
-    cowsay
     file
     which
     tree
@@ -47,6 +47,18 @@
     zstd
     gnupg
 
+    # hyprland
+    rofi
+    zsh
+    waybar
+    swaynotificationcenter
+    hyprpaper
+    font-awesome
+    thunar
+    swaybg
+
+
+    # nixos
     nix-output-monitor
 
     btop  # replacement of htop/nmon
@@ -78,23 +90,20 @@
     enable = true;
     userName = "sp3ctrl";
     userEmail = "126842764+sp3ctrl@users.noreply.github.com";
-    
   };
 
   # BASH
   programs.bash = {
     enable = true;
     enableCompletion = true;
-
     # TODO add your custom bashrc here
     #bashrcExtra = ''
     # export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     #'';
-
     shellAliases = {
       nxbuild = "sudo nixos-rebuild switch";
       nxconfig = "sudo nvim ~/nixcfg/configuration.nix";
-      sysup = "cd ~/nixcfg/ && sudo nix flake update && sudo nixos-rebuild switch";
+      sysupdate  = "cd ~/nixcfg/ && sudo nix flake update && sudo nixos-rebuild switch --impure --flake .";
      };
   };
 

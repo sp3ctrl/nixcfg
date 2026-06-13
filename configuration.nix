@@ -1,6 +1,6 @@
 # Minimal NixosConfig by sp3ctrl
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports =
@@ -8,18 +8,18 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Networking
   networking.hostName = "sp3ctrl";
   # networking.wireless.enable = true; 
   networking.networkmanager.enable = true;
 
-  # Time zone and locale
   time.timeZone = "America/Bogota";
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8" 
+    "es_CO.UTF-8/UTF-8"
+  ];
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_CO.UTF-8";
     LC_IDENTIFICATION = "es_CO.UTF-8";
@@ -32,31 +32,35 @@
     LC_TIME = "es_CO.UTF-8";
   };
 
-  #Enable XFCE
-  services.xserver = {
+  services.xserver.xkb = {
+    layout = "us,latam";
+    variant = "";
+    options = "grp:alt_shift_toggle";
+  };
+
+  programs.hyprland = { 
     enable = true;
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
+    xwayland.enable = true;  
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+  };
+  
+  services.displayManager.ly = {
+    enable = true;
+    x11Support = true;
+    settings = {
+      animation = "cmatrix";
+      animation_timeout_sec = 60;
+      blank_box = false;
     };
   };
-  
-  # Enable Bluetooth support for XFCE
+
+  # Bluetooth 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  # Blueman GUI manager for XFCE
   services.blueman.enable = true;
-
-  services.displayManager.defaultSession = "xfce";
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-  
+     
   # Audio
-  # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -67,7 +71,6 @@
   };
 
   # USERS
-  # Don't forget to set a password with ‘passwd’
   users.users.sp1 = {
     isNormalUser = true;
     description = "sp1";
@@ -78,7 +81,6 @@
     ];
   };
 
-  # SOFTWARE
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes"];
@@ -88,8 +90,8 @@
     wget
     git
     libgcc
-    bat
-
+    kitty
+        
   ];
 
       
