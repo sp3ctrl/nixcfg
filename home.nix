@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
    
     # command line tools
-    neofetch
+    fastfetch
     nnn
 
     # general use
@@ -30,6 +30,7 @@
     dracula-theme
     dracula-icon-theme
     afterglow-cursors-recolored
+    bibata-cursors
 
     # archives
     zip
@@ -54,8 +55,11 @@
     swaynotificationcenter
     hyprpaper
     font-awesome
-    thunar
     swaybg
+    thunar
+    nwg-look #gkt dark mode config
+    gnome-themes-extra #gtk dark themes
+    qt6Packages.qt6ct #qt dark mode config
 
 
     # nixos

@@ -1,6 +1,6 @@
 # Minimal NixosConfig by sp3ctrl
 
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -11,7 +11,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "sp3ctrl";
-  # networking.wireless.enable = true; 
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Bogota";
@@ -35,23 +34,37 @@
   services.xserver.xkb = {
     layout = "us,latam";
     variant = "";
-    options = "grp:alt_shift_toggle";
+    options = "grp:alt_space_toggle";
   };
 
   programs.hyprland = { 
     enable = true;
-    xwayland.enable = true;  
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    xwayland.enable = true;   
   };
+  programs.dms-shell = {
+    enable = true;
+    systemd = {
+        enable = true;             # Systemd service for auto-start
+        restartIfChanged = true;   # Auto-restart dms.service when dms-shell changes
+    };
+  
+    # Core features
+    enableSystemMonitoring = true;     # System monitoring widgets (dgop)
+    #enableVPN = true;                  # VPN management widget
+    enableDynamicTheming = true;       # Wallpaper-based theming (matugen)
+    enableAudioWavelength = true;      # Audio visualizer (cava)
+    enableCalendarEvents = true;       # Calendar integration (khal)
+    enableClipboardPaste = true;       # Pasting from the clipboard history (wtype)
+  };
+ 
   
   services.displayManager.ly = {
     enable = true;
     x11Support = true;
     settings = {
-      animation = "cmatrix";
+      animation = "matrix";
       animation_timeout_sec = 60;
-      blank_box = false;
+      blank_box = true;
     };
   };
 
@@ -81,17 +94,18 @@
     ];
   };
 
+  # SOFTWARE
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes"];
-  
   environment.systemPackages = with pkgs; [
     vim 
     wget
     git
     libgcc
+    bat
     kitty
-        
+    
   ];
 
       
