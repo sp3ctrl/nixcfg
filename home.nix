@@ -11,7 +11,7 @@
    
     # command line tools
     fastfetch
-    nnn
+    
 
     # general use
     qbittorrent
@@ -25,7 +25,8 @@
     google-chrome
     obsidian
     spotify
-        
+    rssguard
+
     # themes  
     dracula-theme
     dracula-icon-theme
@@ -92,8 +93,8 @@
   # GIT
   programs.git = {
     enable = true;
-    userName = "sp3ctrl";
-    userEmail = "126842764+sp3ctrl@users.noreply.github.com";
+    user.name = "sp3ctrl";
+    user.email = "126842764+sp3ctrl@users.noreply.github.com";
   };
 
   # BASH
@@ -105,9 +106,7 @@
     # export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     #'';
     shellAliases = {
-      nxbuild = "sudo nixos-rebuild switch";
-      nxconfig = "sudo nvim ~/nixcfg/configuration.nix";
-      sysupdate  = "cd ~/nixcfg/ && sudo nix flake update && sudo nixos-rebuild switch --impure --flake .";
+       sysupdate  = "cd ~/nixcfg/ && sudo nix flake update && sudo nixos-rebuild switch --impure --flake .";
      };
   };
 
