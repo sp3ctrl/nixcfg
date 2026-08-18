@@ -89,12 +89,20 @@
     linux-manual
 
   ];
+
+  # VIRT-MANAGER
+  dconf.settings = {
+    "org/virt-manager/connections" = {
+       autoconnect = ["qemu:///system"];
+       uris = ["qemu:///system"];
+    };
+  };
   
   # GIT
   programs.git = {
     enable = true;
-    user.name = "sp3ctrl";
-    user.email = "126842764+sp3ctrl@users.noreply.github.com";
+    userName = "sp3ctrl";
+    userEmail = "126842764+sp3ctrl@users.noreply.github.com";
   };
 
   # BASH
@@ -111,5 +119,5 @@
   };
 
   
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

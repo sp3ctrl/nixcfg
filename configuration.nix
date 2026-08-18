@@ -12,25 +12,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "sp3ctrl";
   networking.networkmanager.enable = true;
-
   time.timeZone = "America/Bogota";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8" 
     "es_CO.UTF-8/UTF-8"
   ];
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "es_CO.UTF-8";
-    LC_IDENTIFICATION = "es_CO.UTF-8";
-    LC_MEASUREMENT = "es_CO.UTF-8";
-    LC_MONETARY = "es_CO.UTF-8";
-    LC_NAME = "es_CO.UTF-8";
-    LC_NUMERIC = "es_CO.UTF-8";
-    LC_PAPER = "es_CO.UTF-8";
-    LC_TELEPHONE = "es_CO.UTF-8";
-    LC_TIME = "es_CO.UTF-8";
-  };
-
   services.xserver.xkb = {
     layout = "us,latam";
     variant = "";
@@ -44,10 +31,9 @@
   programs.dms-shell = {
     enable = true;
     systemd = {
-        enable = true;             # Systemd service for auto-start
-        restartIfChanged = true;   # Auto-restart dms.service when dms-shell changes
+        enable = true;              
+	restartIfChanged = true;   
     };
-  
     # Core features
     enableSystemMonitoring = true;     # System monitoring widgets (dgop)
     #enableVPN = true;                  # VPN management widget
@@ -56,14 +42,12 @@
     enableCalendarEvents = true;       # Calendar integration (khal)
     enableClipboardPaste = true;       # Pasting from the clipboard history (wtype)
   };
- 
-  
+   
   services.displayManager.ly = {
     enable = true;
     x11Support = true;
     settings = {
       animation = "matrix";
-      animation_timeout_sec = 60;
       blank_box = true;
     };
   };
@@ -83,16 +67,22 @@
     pulse.enable = true;
   };
 
+  # VIRTUALIZATION
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
   # USERS
   users.users.sp1 = {
     isNormalUser = true;
     description = "sp1";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [
       neovim
       tree
     ];
   };
+  users.groups.libvirtd.members = ["sp1"];
 
   # SOFTWARE
   programs.firefox.enable = true;
@@ -107,7 +97,6 @@
     kitty
     
   ];
-
       
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "26.05"; 
 }
